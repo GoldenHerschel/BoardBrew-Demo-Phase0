@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>BoardBrew Demo Site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-page café site — sticky nav, split hero over a game-board grid, then alternating light / maroon bands */
+:root{
+  --bg:#F8F2F0;        /* off-white with a slight maroon tint */
+  --surface:#FFFFFF;
+  --fg:#2B1213;
+  --muted:#6E5556;
+  --maroon:#4A1D1F;    /* sampled from BoardBrew logo */
+  --teal:#01877E;      /* sampled from BoardBrew logo */
+  --teal-soft:#D9EEEA;
+  --line:#E6D9D6;
+  --on-maroon:#F8F2F0;
+  --tag:#E8590C;
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-body:"Figtree",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1A1112;--surface:#251819;--fg:#F3E9E6;--muted:#BBA4A2;--maroon:#3A1A1C;--teal:#2DB3A6;--teal-soft:#183331;--line:#3A2729;--on-maroon:#F3E9E6;--tag:#FF8A4C;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1A1112;--surface:#251819;--fg:#F3E9E6;--muted:#BBA4A2;--maroon:#3A1A1C;--teal:#2DB3A6;--teal-soft:#183331;--line:#3A2729;--on-maroon:#F3E9E6;--tag:#FF8A4C;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:1.0625rem;line-height:1.6}
+h1,h2,h3{font-family:var(--font-display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.9rem,4vw,2.75rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:20px}
+section{padding-block:clamp(56px,8vw,96px)}
+.eyebrow{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
+.lede{color:var(--muted);max-width:56ch}
+.head{display:grid;gap:12px;margin-bottom:36px}
+
+/* Demo banner */
+.demo-bar{background:var(--fg);color:var(--bg);font-size:.82rem;text-align:center;padding:8px 16px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 1rem var(--font-body);padding:13px 22px;border-radius:999px;border:2px solid transparent;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-ghost{border-color:currentColor;background:transparent}
+
+/* Nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;font:800 1.45rem var(--font-display);letter-spacing:.02em;color:var(--maroon);text-decoration:none}
+:root[data-theme="dark"] .logo{color:var(--fg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo{color:var(--fg)}}
+.logo svg{width:.8em;height:1.05em;margin-inline:1px}
+.nav-links{display:flex;gap:22px;font-weight:500;font-size:.95rem}
+.nav-links a{text-decoration:none;color:var(--muted)}
+.nav-links a:hover{color:var(--fg)}
+@media (max-width:760px){.nav-links{display:none}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding-block:clamp(48px,7vw,88px)}
+.hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(120deg,transparent 35%,#000 90%);opacity:.7}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:800;color:var(--maroon);letter-spacing:-.02em}
+:root[data-theme="dark"] .hero h1{color:var(--fg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero h1{color:var(--fg)}}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.hero-copy{display:grid;gap:22px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:.92rem;color:var(--muted)}
+.hero-facts b{color:var(--fg);font-weight:600}
+.table-card{background:var(--maroon);color:var(--on-maroon);border-radius:18px;padding:28px;display:grid;gap:18px;box-shadow:0 20px 40px -24px rgba(74,29,31,.6)}
+.table-card .eyebrow{color:#7FD6CC}
+.table-card h3{font-size:1.5rem}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.slot{border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:10px 8px;text-align:center;font-size:.85rem;font-variant-numeric:tabular-nums}
+.slot small{display:block;opacity:.7}
+.slot.full{opacity:.4;text-decoration:line-through}
+.slot.open{background:var(--teal);border-color:var(--teal)}
+
+/* How it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.step{display:grid;gap:10px;padding-top:18px;border-top:2px solid var(--maroon)}
+:root[data-theme="dark"] .step{border-color:var(--teal)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .step{border-color:var(--teal)}}
+.die{width:38px;height:38px;border-radius:9px;background:var(--teal-soft);display:grid;grid-template-columns:repeat(3,1fr);padding:7px;gap:2px}
+.die i{width:6px;height:6px;border-radius:50%;place-self:center}
+.die i.on{background:var(--teal)}
+.step p{color:var(--muted)}
+
+/* Games */
+.games-band{background:var(--surface);border-block:1px solid var(--line)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{font:500 .9rem var(--font-body);padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--maroon);color:var(--on-maroon);border-color:var(--maroon)}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.game{position:relative;display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.game .stripe{height:6px;border-radius:3px;background:var(--teal)}
+.game[data-cat="party"] .stripe{background:var(--tag)}
+.game[data-cat="family"] .stripe{background:var(--maroon)}
+:root[data-theme="dark"] .game[data-cat="family"] .stripe{background:var(--muted)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .game[data-cat="family"] .stripe{background:var(--muted)}}
+.game p{color:var(--muted);font-size:.93rem}
+.specs{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--font-mono);font-size:.74rem;color:var(--fg);font-variant-numeric:tabular-nums}
+.note{font-size:.85rem;color:var(--muted);margin-top:18px;font-style:italic}
+
+/* Menu */
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+@media (max-width:760px){.menu-grid{grid-template-columns:1fr}}
+.menu-col{display:grid;gap:4px;align-content:start}
+.menu-col h3{margin-bottom:10px;color:var(--teal)}
+.item{display:flex;align-items:baseline;gap:10px;padding-block:10px;border-bottom:1px dashed var(--line)}
+.item span:first-child{font-weight:600}
+.item .dots{flex:1}
+.item .price{font-variant-numeric:tabular-nums;color:var(--muted)}
+.order-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+
+/* Events */
+.events{background:var(--maroon);color:var(--on-maroon)}
+.events .eyebrow{color:#7FD6CC}
+.events .lede{color:color-mix(in srgb,var(--on-maroon) 75%,transparent)}
+.event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.event{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:22px;border:1px solid rgba(255,255,255,.18);border-radius:var(--radius)}
+.date{display:grid;place-content:center;text-align:center;width:64px;height:70px;border-radius:8px;background:var(--on-maroon);color:var(--maroon);font-family:var(--font-display);line-height:1}
+.date b{font-size:1.6rem;font-weight:800}
+.date small{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.event p{opacity:.8;font-size:.95rem;margin-top:6px}
+.events .btn-ghost{color:var(--on-maroon)}
+
+/* Reserve */
+.reserve-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+@media (max-width:860px){.reserve-grid{grid-template-columns:1fr}}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--surface);padding:28px;border-radius:16px;border:1px solid var(--line)}
+@media (max-width:520px){form{grid-template-columns:1fr}}
+.field{display:grid;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+label{font-size:.85rem;font-weight:600}
+input,select{font:inherit;font-size:1rem;padding:11px 13px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%}
+.form-msg{grid-column:1/-1;padding:12px 14px;border-radius:8px;background:var(--teal-soft);font-size:.95rem}
+
+/* Visit */
+.visit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px}
+.visit-grid div{display:grid;gap:6px;align-content:start}
+.visit-grid h3{font-size:.8rem;font-family:var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:500}
+.copy{font:500 .8rem var(--font-body);border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;padding:3px 9px;cursor:pointer;justify-self:start}
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* Feedback labels */
+.fb-toggle{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;align-items:center;gap:8px;font:600 .88rem var(--font-body);padding:11px 16px;border-radius:999px;border:0;background:var(--tag);color:#fff;cursor:pointer;box-shadow:0 8px 24px -8px rgba(0,0,0,.4)}
+[data-label]{position:relative}
+body.review [data-label]{outline:2px dashed var(--tag);outline-offset:4px}
+body.review [data-label]::after{content:attr(data-label);position:absolute;top:-12px;left:-6px;z-index:30;font:500 11px/1 var(--font-mono);letter-spacing:.04em;background:var(--tag);color:#fff;padding:4px 6px;border-radius:4px;white-space:nowrap;pointer-events:none;text-transform:none}
+body.review section[data-label]::after,body.review nav[data-label]::after,body.review footer[data-label]::after{top:8px;left:8px;font-size:13px;padding:6px 9px}
+body.review section[data-label],body.review nav[data-label],body.review footer[data-label]{outline-offset:-4px}
+</style>
+</head>
+<body>
+
+
+<div class="demo-bar">Demo draft for BoardBrew's review. Placeholder content is marked; nothing here is final.</div>
+
+<nav data-label="A · Navigation bar">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="BoardBrew home" data-label="A1 · Logo">B<svg viewBox="0 0 40 52" aria-hidden="true"><ellipse cx="20" cy="26" rx="18" ry="24" fill="var(--teal)"/><path d="M22 4c-9 10 6 24-4 44" stroke="var(--bg)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>ARDBREW</a>
+    <div class="nav-links">
+      <a href="#games">Games</a><a href="#menu">Menu</a><a href="#events">Events</a><a href="#visit">Visit</a>
+    </div>
+    <a class="btn btn-primary" href="#reserve" style="padding:9px 18px;font-size:.92rem" data-label="A2 · Button">Book a table</a>
+  </div>
+</nav>
+
+<section class="hero" id="top" data-label="B · Hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow" data-label="B1 · Eyebrow text">Board game café · Manila</span>
+      <h1 data-label="B2 · Headline">Where coffee meets <em>connections.</em></h1>
+      <p class="lede" data-label="B3 · Intro text">Grab a cup, pull a game off the shelf, and stay as long as the game lasts. Bring your barkada or meet new players at our table.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#reserve" data-label="B4 · Button">Reserve a table</a>
+        <a class="btn btn-ghost" href="#games" data-label="B5 · Button">Browse the shelf</a>
+      </div>
+      <div class="hero-facts"><span><b>2F Providence Tower</b>, Manila</span><span><b>100%</b> recommend (20 reviews)</span><span><b>3.7K</b> followers</span></div>
+    </div>
+    <div class="table-card" data-label="B6 · Table availability card">
+      <span class="eyebrow">Tonight's tables · sample</span>
+      <h3>Find an open table</h3>
+      <div class="slots">
+        <div class="slot full">2:00<small>4 pax</small></div>
+        <div class="slot open">4:00<small>4 pax</small></div>
+        <div class="slot">5:30<small>6 pax</small></div>
+        <div class="slot full">6:00<small>2 pax</small></div>
+        <div class="slot">7:30<small>4 pax</small></div>
+        <div class="slot open">8:00<small>8 pax</small></div>
+      </div>
+      <a class="btn btn-primary" href="#reserve" style="justify-self:start" data-label="B7 · Button">Hold the 4:00 table</a>
+    </div>
+  </div>
+</section>
+
+<section id="how" data-label="C · How it works">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">First time here?</span><h2>How a BoardBrew visit works</h2></div>
+    <div class="steps">
+      <div class="step" data-label="C1 · Step card"><div class="die"><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div><h3>Get a table</h3><p>Walk in or book ahead online. Bigger groups should reserve, especially on weekends.</p></div>
+      <div class="step" data-label="C2 · Step card"><div class="die"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></div><h3>Pick a game</h3><p>Choose from the shelf. Not sure what to play? Ask the staff and they'll teach you the rules.</p></div>
+      <div class="step" data-label="C3 · Step card"><div class="die"><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i></div><h3>Order and play</h3><p>Coffee, drinks and snacks come to your table. Stay for one round or ten.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="games-band" id="games" data-label="D · Game shelf">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">The shelf</span><h2>Something for every table size</h2><p class="lede">Filter by the kind of night you're after.</p></div>
+    <div class="filters" role="group" aria-label="Filter games" data-label="D1 · Filter chips">
+      <button class="chip" aria-pressed="true" data-f="all">All games</button>
+      <button class="chip" aria-pressed="false" data-f="party">Party</button>
+      <button class="chip" aria-pressed="false" data-f="strategy">Strategy</button>
+      <button class="chip" aria-pressed="false" data-f="family">Quick &amp; easy</button>
+    </div>
+    <div class="games" id="games-list">
+      <article class="game" data-cat="strategy" data-label="D2 · Game card"><div class="stripe"></div><div><h3>Catan</h3><p>Trade, build and outsmart your friends for control of the island.</p></div><div class="specs"><span>3–4 players</span><span>60–120 min</span><span>Age 10+</span></div></article>
+      <article class="game" data-cat="party"><div class="stripe"></div><div><h3>Codenames</h3><p>Two teams, one-word clues. Great for big groups.</p></div><div class="specs"><span>2–8 players</span><span>15 min</span><span>Age 14+</span></div></article>
+      <article class="game" data-cat="strategy"><div class="stripe"></div><div><h3>Ticket to Ride</h3><p>Claim train routes across the map before anyone blocks you.</p></div><div class="specs"><span>2–5 players</span><span>30–60 min</span><span>Age 8+</span></div></article>
+      <article class="game" data-cat="family"><div class="stripe"></div><div><h3>Exploding Kittens</h3><p>Fast card game. Draw until someone explodes.</p></div><div class="specs"><span>2–5 players</span><span>15 min</span><span>Age 7+</span></div></article>
+      <article class="game" data-cat="family"><div class="stripe"></div><div><h3>Splendor</h3><p>Collect gems and build a jewelry empire. Easy to learn.</p></div><div class="specs"><span>2–4 players</span><span>30 min</span><span>Age 10+</span></div></article>
+      <article class="game" data-cat="party"><div class="stripe"></div><div><h3>Dixit</h3><p>Dreamlike art cards and clever storytelling.</p></div><div class="specs"><span>3–6 players</span><span>30 min</span><span>Age 8+</span></div></article>
+    </div>
+    <p class="note">Sample titles only. BoardBrew's real game list goes here.</p>
+  </div>
+</section>
+
+<section id="menu" data-label="E · Menu">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Brews &amp; bites</span><h2>Fuel for the long games</h2></div>
+    <div class="menu-grid">
+      <div class="menu-col" data-label="E1 · Menu list">
+        <h3>Coffee</h3>
+        <div class="item"><span>Spanish Latte</span><span class="dots"></span><span class="price">₱ —</span></div>
+        <div class="item"><span>Americano</span><span class="dots"></span><span class="price">₱ —</span></div>
+        <div class="item"><span>Caramel Macchiato</span><span class="dots"></span><span class="price">₱ —</span></div>
+        <div class="item"><span>Iced Mocha</span><span class="dots"></span><span class="price">₱ —</span></div>
+      </div>
+      <div class="menu-col">
+        <h3>Non-coffee &amp; snacks</h3>
+        <div class="item"><span>Matcha Latte</span><span class="dots"></span><span class="price">₱ —</span></div>
+        <div class="item"><span>Strawberry Milk</span><span class="dots"></span><span class="price">₱ —</span></div>
+        <div class="item"><span>Nachos to share</span><span class="dots"></span><span class="price">₱ —</span></div>
+        <div class="item"><span>Fries basket</span><span class="dots"></span><span class="price">₱ —</span></div>
+      </div>
+    </div>
+    <p class="note">Placeholder items and prices. We'll swap in the real menu.</p>
+    <div class="order-row">
+      <a class="btn btn-primary" href="https://utak.io/store/boardbrew" target="_blank" rel="noopener" data-label="E2 · Button">Order online</a>
+      <a class="btn btn-ghost" href="https://foodpanda.go.link/d3JZw" target="_blank" rel="noopener" data-label="E3 · Button">Order on foodpanda</a>
+    </div>
+  </div>
+</section>
+
+<section class="events" id="events" data-label="F · Events">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Happening at BoardBrew</span><h2>Events &amp; pop-ups</h2><p class="lede">Game nights, tournaments and weekend markets. Follow us for the latest.</p></div>
+    <div class="event-grid">
+      <article class="event" data-label="F1 · Event card"><div class="date"><small>Oct</small><b>—</b></div><div><h3>Artist &amp; vendor market</h3><p>Now accepting artists, tarot readers and non-food concessionaires.</p></div></article>
+      <article class="event"><div class="date"><small>Fri</small><b>—</b></div><div><h3>Friday game night</h3><p>Sample event. Open tables, staff teaching new games all night.</p></div></article>
+      <article class="event"><div class="date"><small>Sat</small><b>—</b></div><div><h3>Codenames tournament</h3><p>Sample event. Teams of four, prizes for the top table.</p></div></article>
+    </div>
+    <div style="margin-top:28px"><a class="btn btn-ghost" href="https://www.instagram.com/boardbrew.wcmc" target="_blank" rel="noopener" data-label="F2 · Button">Follow @boardbrew.wcmc</a></div>
+  </div>
+</section>
+
+<section id="reserve" data-label="G · Reservation form">
+  <div class="wrap reserve-grid">
+    <div class="head" style="margin:0"><span class="eyebrow">Reservations</span><h2>Save your spot at the table</h2><p class="lede">Tell us when you're coming and how many are playing. We'll confirm by message.</p></div>
+    <form id="rform" novalidate data-label="G1 · Form">
+      <div class="field full"><label for="r-name">Name</label><input id="r-name" required placeholder="Juan Dela Cruz"></div>
+      <div class="field"><label for="r-date">Date</label><input id="r-date" type="date" required></div>
+      <div class="field"><label for="r-time">Time</label><select id="r-time"><option>2:00 PM</option><option selected>4:00 PM</option><option>6:00 PM</option><option>8:00 PM</option></select></div>
+      <div class="field"><label for="r-pax">Group size</label><select id="r-pax"><option>2</option><option selected>4</option><option>6</option><option>8+</option></select></div>
+      <div class="field"><label for="r-phone">Mobile number</label><input id="r-phone" placeholder="09XX XXX XXXX"></div>
+      <div class="field full"><button class="btn btn-primary" type="submit" style="justify-self:start" data-label="G2 · Button">Request reservation</button></div>
+      <div class="form-msg" id="r-msg" hidden></div>
+    </form>
+  </div>
+</section>
+
+<section class="games-band" id="visit" data-label="H · Visit &amp; contact">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Come play</span><h2>Visit us</h2></div>
+    <div class="visit-grid">
+      <div><h3>Address</h3><p>2F Providence Tower<br>Manila, Philippines</p></div>
+      <div><h3>Hours</h3><p>To be confirmed</p></div>
+      <div><h3>Phone</h3><p id="ph">+63 921 442 5656</p><button class="copy" data-copy="ph">Copy</button></div>
+      <div><h3>Email</h3><p id="em" style="overflow-wrap:anywhere">boardbrew.wcmc@gmail.com</p><button class="copy" data-copy="em">Copy</button></div>
+    </div>
+  </div>
+</section>
+
+<footer data-label="I · Footer">
+  <div class="wrap"><span>© BoardBrew · Where coffee meets connections</span><span>Demo build for client review</span></div>
+</footer>
+
+<button class="fb-toggle" id="fb" aria-pressed="false">Show feedback labels</button>
+
+<script>
+// Feedback labels
+const fb=document.getElementById('fb');
+function setReview(on){document.body.classList.toggle('review',on);fb.setAttribute('aria-pressed',on);fb.textContent=on?'Hide feedback labels':'Show feedback labels';try{localStorage.setItem('bb-review',on?'1':'0')}catch(e){}}
+fb.addEventListener('click',()=>setReview(!document.body.classList.contains('review')));
+try{if(localStorage.getItem('bb-review')==='1')setReview(true)}catch(e){}
+
+// Game filter
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
+  const f=c.dataset.f;
+  document.querySelectorAll('.game').forEach(g=>g.hidden=!(f==='all'||g.dataset.cat===f));
+}));
+
+// Reservation form (demo only)
+document.getElementById('rform').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('r-name').value.trim(),date=document.getElementById('r-date').value,msg=document.getElementById('r-msg');
+  msg.hidden=false;
+  if(!name||!date){msg.textContent='Add your name and a date so we can hold a table.';return}
+  msg.textContent=`Demo only: in the live site, ${name} would get a confirmation for ${document.getElementById('r-pax').value} people on ${date}, ${document.getElementById('r-time').value}.`;
+});
+
+// Copy buttons
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const t=document.getElementById(b.dataset.copy);
+  navigator.clipboard.writeText(t.textContent).then(()=>{b.textContent='Copied'}).catch(()=>{const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'});
+}));
+</script>
+
+</body>
+</html>
