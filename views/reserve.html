@@ -1,0 +1,28 @@
+<section id="reserve" data-label="C · Reservations">
+  <div class="wrap reserve-grid">
+    <div class="head" style="margin:0">
+      <span class="eyebrow">Reservations</span>
+      <h2>Save your spot at the table</h2>
+      <p class="lede">Pick a date, time and group size. Your request goes to BoardBrew on Messenger, and the team confirms your table there.</p>
+      <div class="rule" data-label="C1 · Booking rule"><b>2h</b><span>Reservations must be made <strong>at least 2 hours</strong> before your chosen time. Coming sooner? Walk in or message us.</span></div>
+    </div>
+    <form id="rform" novalidate data-label="C2 · Reservation form">
+      <div class="field full"><label for="r-name">Name</label><input id="r-name" autocomplete="name" placeholder="Juan Dela Cruz"></div>
+      <div class="field"><label for="r-date">Date</label><input id="r-date" type="date"></div>
+      <div class="field"><label for="r-time">Time</label><select id="r-time"></select><span class="hint" id="r-time-hint"></span></div>
+      <div class="field"><label for="r-pax">Group size</label><select id="r-pax"></select></div>
+      <div class="field"><label for="r-phone">Mobile number</label><input id="r-phone" inputmode="tel" autocomplete="tel" placeholder="09XX XXX XXXX"></div>
+      <div class="field full"><label for="r-note">Notes (optional)</label><input id="r-note" placeholder="Birthday, a game you want reserved, etc."></div>
+      <div class="field full"><span class="err" id="r-err" role="alert"></span><button class="btn btn-primary" type="submit" style="justify-self:start" data-label="C3 · Button">Request reservation</button></div>
+      <div class="result" id="r-result" hidden>
+        <strong>Almost done. Send this message to BoardBrew:</strong>
+        <pre id="r-msg"></pre>
+        <div class="row">
+          <button class="btn btn-primary btn-sm" type="button" id="r-copy">Copy message</button>
+          <a class="btn btn-ghost btn-sm" href="https://m.me/boardbreww" target="_blank" rel="noopener">Open Messenger</a>
+        </div>
+        <span class="hint">Your table is confirmed once BoardBrew replies.</span>
+      </div>
+    </form>
+  </div>
+</section>
