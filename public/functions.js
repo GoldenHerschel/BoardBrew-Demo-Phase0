@@ -16,6 +16,37 @@ const GAMES = [
 ["Unstable Unicorns",2,8],["Do You Know Me?",2,6],["First & Last",2,6],["Jenga",1,8],["Tetra Tower",1,8],["Stacking Game",1,6],["Cribbage Wars",2,2],["Yong Juncup",2,10]
 ];
 
+// BroadBrew's Drink Menu: [name, tag, pawn price, queen price] (-1 if none)
+const DRINKS = [
+["BoardBrewed Coffee","Coffee",-1,89], ["King Americano","Coffee",89,99], ["Victory Cappuccino","Coffee",89,119], ["Latte Lore","Coffee",89,119], ["Caramel Macchiatto","Coffee",109,129], ["Spanish Latte","Coffee",109,129], ["Irish Caramel Latte","Coffee",109,129],
+["Butterscotch Caramel Latte","Coffee",109,135], ["Cafe Mocha","Coffee",109,135], ["Barista's Bet","Coffee",119,155], ["White Chocolate Mocha","Coffee",119,149], ["Caramel Biscoffee","Coffee",119,149], ["Spanish Biscoffee","Coffee",119,149], ["Dirty Matcha","Coffee",125,145],
+["Milk Elixir","Milk",89,99], ["Creamy Matcha","Milk",99,129], ["Checkmate Chocolate","Milk",119,139], ["Matcha Latte","Milk",119,149], ["Strawberry Matcha","Milk",119,149],
+["Iced Tea","Refresher",65,89], ["Strawberry Lemonade","Refresher",89,109], ["Peach Lemonade","Refresher",89,109], ["Mango Lemonade","Refresher",89,109],
+["Strawberry Mana","Mana",109,129], ["Peach Mana","Mana",109,129], ["Mango Mana","Mana",109,129], ["Peach Mango Mana","Mana",109,129], ["Peach Butterscotch Mana","Mana",109,129], ["Strawberry Caramel Mana","Mana",109,129], 
+["Strawberry Frost","Frost",109,139], ["White Mocha Frost","Frost",119,139], ["Mocha Frost","Frost",119,139], ["Chocolate Frost","Frost",119,139], ["Matcha Frost","Frost",129,145], 
+["Strawberry Quest","Winter Quest",99,119], ["Lemon Quest","Frost",99,119], ["Peach Quest","Frost",99,119], ["Mango Quest","Frost",99,119]
+]
+// Drinks for Sharing [name, price]
+const SDRINKS = [
+["Ice Tea", 199], ["Strawberry Potion",199], ["Peach Potion",199], ["Peach Mango Potion",199]
+]
+// Add-ons [name, price]
+const DRINKADD = [
+["Expresso Shot",30], ["Syrup",20], ["Popping Boba",10]
+]
+
+// BroadBrew's Bites Menu: [name, tag, price]
+const BITES = [
+["Tuna Pasta","Pasta",119], ["Chicken Alfredo","Pasta",119], 
+["Beef Pepper Rice","Rice Meal",149], ["Pork Samgyupsal","Rice Meal",129], ["Spicy Pork Samgyupsal","Rice Meal",129], ["Buffalo Chicken","Rice Meal",129], ["Soy Garlic Chicken","Rice Meal",129], 
+["Plain Salad","Salad",109], ["Chicken & Egg Salad","Salad",109], 
+["Nachos","Nachos",75]
+]
+//Add-ons [name,price]
+const BITESADD = [
+["Egg",20], ["Rice",20], ["Fried Rice",30], ["Cheese",20], ["Bottled Water",15]
+]
+
 // Events: SAMPLE data — replace with BoardBrew's real schedule. Dates are YYYY-MM-DD.
 const today0=new Date();today0.setHours(0,0,0,0);
 function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
