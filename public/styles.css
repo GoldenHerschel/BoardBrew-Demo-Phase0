@@ -184,3 +184,27 @@ body.review-mode section[data-label],body.review-mode nav[data-label],body.revie
 
 /* QA test clock banner */
 .test-clock{background:var(--tag);color:#fff;font-size:.85rem;text-align:center;padding:8px 16px}
+
+/* Footer policy links */
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 18px}
+.foot-links a{color:var(--muted)}
+.foot-links a:hover{color:var(--fg)}
+
+/* Policies page */
+.policy{max-width:760px;padding-block:clamp(40px,7vw,72px)}
+.policy-head{display:grid;gap:14px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.policy-head h1{font-size:clamp(2.4rem,6vw,3.6rem);font-weight:800;color:var(--head)}
+.policy-toc{display:flex;flex-wrap:wrap;gap:8px}
+.policy-toc a{text-decoration:none;font-weight:600;font-size:.92rem;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.policy-toc a:hover{border-color:var(--teal)}
+.policy section{padding-block:36px;border-bottom:1px solid var(--line);scroll-margin-top:72px}
+.policy section:last-of-type{border-bottom:0}
+.policy h2{font-size:clamp(1.6rem,3.6vw,2.1rem);margin-bottom:14px}
+.policy h3{font-family:var(--font-body);font-size:1.02rem;font-weight:700;margin:22px 0 6px}
+.policy p+p{margin-top:10px}
+.policy ul{padding-left:1.2em;display:grid;gap:10px;margin:0}
+.policy a{color:var(--teal)}
+mark.flag{background:color-mix(in srgb,var(--tag) 20%,transparent);color:var(--fg);border:1px dashed var(--tag);border-radius:4px;padding:0 6px;font-size:.9em;font-weight:600}
+/* Small link rows are <nav> too: don't give them the sticky top-bar look */
+.policy-toc,.foot-links{position:static;background:none;backdrop-filter:none;border:0;z-index:auto}
+body:has(.fb-toggle) footer{padding-bottom:84px}

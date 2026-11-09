@@ -4,6 +4,7 @@
 //   2. Run: ADMIN_KEY=pick-a-secret node server.js   (needs Node 18+, no installs)
 //   3. Open http://localhost:3000
 // Staff can list bookings at /api/reservations?key=pick-a-secret
+// Bookings are deleted RETENTION_DAYS after their date (default 30, matching the privacy notice).
 // Bookings are saved to data/reservations.json. On free hosts that file can reset on redeploy,
 // so swap in a real database before relying on it.
 const http = require("http");
@@ -15,12 +16,20 @@ const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = process.env.ADMIN_KEY || "";
 const DB = path.join(ROOT, "data", "reservations.json");
+const RETENTION_DAYS = Number(process.env.RETENTION_DAYS || 30);
 const TYPES = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".json": "application/json", ".png": "image/png", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".ico": "image/x-icon" };
 
 // Same rules as the page (public/config.js). The server checks them again so nobody can skip them.
 const LEAD_HOURS = 2, FIRST = 8 * 60, LAST = 24 * 60;
 
-const load = () => { try { return JSON.parse(fs.readFileSync(DB, "utf8")); } catch { return []; } };
+// Reads bookings and drops any older than the retention period (privacy notice promise).
+const load = () => {
+  let list; try { list = JSON.parse(fs.readFileSync(DB, "utf8")); } catch { return []; }
+  const cutoff = new Date(Date.now() - RETENTION_DAYS * 864e5).toISOString().slice(0, 10);
+  const kept = list.filter((b) => b.date >= cutoff);
+  if (kept.length !== list.length) save(kept);
+  return kept;
+};
 const save = (list) => { fs.mkdirSync(path.dirname(DB), { recursive: true }); fs.writeFileSync(DB, JSON.stringify(list, null, 2)); };
 const send = (res, code, body) => { res.writeHead(code, { "Content-Type": "application/json" }); res.end(JSON.stringify(body)); };
 

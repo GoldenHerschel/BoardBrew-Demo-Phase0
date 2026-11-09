@@ -1,0 +1,118 @@
+<!-- Built by build.js. Edit views/ and run: node build.js -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Policies · BoardBrew</title>
+<meta name="description" content="BoardBrew's privacy notice, reservation policy and website terms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="public/styles.css">
+</head>
+<body>
+
+<div class="demo-bar">Demo draft for BoardBrew's review. Items marked “To confirm” still need BoardBrew's answer.</div>
+
+<nav data-label="A · Navigation bar">
+  <div class="wrap">
+    <a class="logo" href="index.html#top" aria-label="BoardBrew home" data-label="A1 · Logo">B<svg viewBox="0 0 40 52" aria-hidden="true"><ellipse cx="20" cy="26" rx="18" ry="24" fill="var(--teal)"/><path d="M22 4c-9 10 6 24-4 44" stroke="var(--bg)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>ARDBREW</a>
+    <div class="nav-links">
+      <a href="index.html#events">Events</a><a href="index.html#games">Games</a><a href="index.html#menu">Menu</a><a href="index.html#reviews">Reviews</a><a href="index.html#visit">Visit</a>
+    </div>
+    <a class="btn btn-primary btn-sm" href="index.html#reserve" data-label="A2 · Button">Reserve</a>
+  </div>
+</nav>
+
+<main class="wrap policy">
+  <header class="policy-head">
+    <span class="eyebrow">The fine print</span>
+    <h1>Policies</h1>
+    <p class="lede">How we handle your details, how reservations work, and the terms for using this website. Last updated <span data-cfg="privacy.lastUpdated"></span>.</p>
+    <nav class="policy-toc" aria-label="On this page">
+      <a href="#privacy">Privacy notice</a>
+      <a href="#reservations">Reservation policy</a>
+      <a href="#terms">Website terms</a>
+    </nav>
+  </header>
+
+  <section id="privacy">
+    <h2>Privacy notice</h2>
+    <p>This notice explains how <span data-cfg="business.legalName" data-fallback="business.name"></span> (“BoardBrew”, “we”) handles personal information collected through this website, as required by the Data Privacy Act of 2012 (Republic Act No. 10173).</p>
+
+    <h3>Who to contact</h3>
+    <p>Privacy contact: <span data-cfg="privacy.contactName"></span><br>
+    Email: <span data-cfg="privacy.contactEmail"></span> · Phone: <span data-cfg="contact.phone"></span><br>
+    Address: <span data-cfg="contact.address"></span></p>
+
+    <h3>What we collect and why</h3>
+    <p>When you request a reservation, we ask for your <strong>name</strong>, <strong>mobile number</strong>, the <strong>date, time and group size</strong>, and any <strong>notes</strong> you choose to add. We use these only to confirm and manage your booking and to contact you about it.</p>
+    <p>We don’t ask you to create an account. This website doesn’t use cookies, ads or analytics, and doesn’t track you.</p>
+    <p>Please don’t put health or other sensitive information in the notes.</p>
+
+    <h3>How the booking form works</h3>
+    <p data-mode="messenger">The website doesn’t send or store what you type. It prepares a message on your own device, and you choose whether to send it to us on Messenger. Once you send it, we receive it in our Messenger inbox, and Meta’s own terms and privacy policy also apply to that conversation.</p>
+    <p data-mode="api" hidden>When you submit the form, your details are sent over a secure connection to our booking system and saved there so our staff can confirm your table.</p>
+
+    <h3>Who sees it</h3>
+    <p>Only BoardBrew staff who handle reservations. We don’t sell your information or share it with anyone else, unless the law requires us to.</p>
+
+    <h3>How long we keep it</h3>
+    <p>We delete booking details <span data-cfg="privacy.retentionDays"></span> days after the booking date, unless we need them longer to resolve a problem with your visit.</p>
+
+    <h3>Other services</h3>
+    <p>This website loads its fonts from Google Fonts, which means Google receives your device’s IP address. Links to Messenger, foodpanda, GrabFood, our online store and our social media pages take you to other companies’ sites. Their own privacy policies apply there.</p>
+
+    <h3>Your rights</h3>
+    <p>Under the Data Privacy Act, you have the right to be informed about how your data is used, and to access, correct, object to the use of, and ask us to delete or block your personal data. You also have the right to data portability, to claim damages, and to file a complaint with the <a href="https://privacy.gov.ph" target="_blank" rel="noopener">National Privacy Commission</a>.</p>
+    <p>To use any of these rights, contact us using the details above.</p>
+
+    <h3>How we protect it</h3>
+    <p>Only staff who need booking details can see them, and we delete them once they’re no longer needed.</p>
+
+    <h3>Changes</h3>
+    <p>If we change how we handle your information, we’ll update this notice and the date at the top of this page.</p>
+  </section>
+
+  <section id="reservations">
+    <h2>Reservation policy</h2>
+    <ul>
+      <li>Reservations are for <span data-cfg="reservations.window"></span>, every day including holidays.</li>
+      <li>Book at least <span data-cfg="reservations.leadHours"></span> hours ahead. Coming sooner? Walk in or message us.</li>
+      <li>A request isn’t a confirmed booking. Your table is confirmed once BoardBrew replies.</li>
+      <li>We hold your table for <span data-cfg="reservationPolicy.graceMinutes"></span> minutes after your booking time.</li>
+      <li>Cancelling or changing: <span data-cfg="reservationPolicy.cancellation"></span> Message us on Messenger or call <span data-cfg="contact.phone"></span>.</li>
+      <li>Deposits: <span data-cfg="reservationPolicy.deposit"></span></li>
+      <li>For groups of <span data-cfg="reservations.maxGroup"></span> or more, message us first so we can set up enough tables.</li>
+    </ul>
+  </section>
+
+  <section id="terms">
+    <h2>Website terms</h2>
+    <ul>
+      <li>We keep the menu, prices, game list and events up to date, but they can change without notice. Prices in the café are the ones that apply.</li>
+      <li>A reservation request made on this website isn’t confirmed until BoardBrew replies.</li>
+      <li>Links to other websites are there for your convenience. We aren’t responsible for their content or how they work.</li>
+      <li>The BoardBrew name, logo, photos and text on this site belong to BoardBrew. Please ask before using them.</li>
+      <li>Questions about these terms? Email <span data-cfg="contact.email"></span>.</li>
+    </ul>
+  </section>
+</main>
+
+<footer data-label="I · Footer">
+  <div class="wrap">
+    <span>© BoardBrew · Where coffee meets connections</span>
+    <nav class="foot-links" aria-label="Policies">
+      <a href="policies.html#privacy">Privacy notice</a>
+      <a href="policies.html#reservations">Reservation policy</a>
+      <a href="policies.html#terms">Website terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="public/config.js"></script>
+<script src="public/policies.js"></script>
+</body>
+</html>

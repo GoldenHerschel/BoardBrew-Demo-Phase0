@@ -66,8 +66,8 @@
       <div class="field"><label for="r-time">Time</label><select id="r-time"></select><span class="hint" id="r-time-hint"></span></div>
       <div class="field"><label for="r-pax">Group size</label><select id="r-pax"></select></div>
       <div class="field"><label for="r-phone">Mobile number</label><input id="r-phone" inputmode="tel" autocomplete="tel" placeholder="0917 123 4567"></div>
-      <div class="field full"><label for="r-note">Notes (optional)</label><input id="r-note" placeholder="Birthday, a game you want set aside, etc."></div>
-      <div class="field full"><span class="err" id="r-err" role="alert"></span><button class="btn btn-primary" type="submit" style="justify-self:start" data-label="C3 · Button">Request reservation</button></div>
+      <div class="field full"><label for="r-note">Notes (optional)</label><input id="r-note" maxlength="300" placeholder="Birthday, a game you want set aside, etc." aria-describedby="r-note-hint"><span class="hint" id="r-note-hint">Please don’t include health or other sensitive details.</span></div>
+      <div class="field full"><span class="err" id="r-err" role="alert"></span><button class="btn btn-primary" type="submit" style="justify-self:start" data-label="C3 · Button">Request reservation</button><span class="hint">We use your name and number only to confirm this booking. <a href="policies.html#privacy">Privacy notice</a> · <a href="policies.html#reservations">Reservation policy</a></span></div>
       <div class="result" id="r-result" hidden>
         <strong id="r-intro">Almost done. Send this message to BoardBrew:</strong>
         <pre id="r-msg"></pre>
@@ -166,7 +166,14 @@
 </main>
 
 <footer data-label="I · Footer">
-  <div class="wrap"><span>© BoardBrew · Where coffee meets connections</span><span>Demo build for client review</span></div>
+  <div class="wrap">
+    <span>© BoardBrew · Where coffee meets connections</span>
+    <nav class="foot-links" aria-label="Policies">
+      <a href="policies.html#privacy">Privacy notice</a>
+      <a href="policies.html#reservations">Reservation policy</a>
+      <a href="policies.html#terms">Website terms</a>
+    </nav>
+  </div>
 </footer>
 
 <button class="fb-toggle" id="fb" aria-pressed="false">Show feedback labels</button>

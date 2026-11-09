@@ -23,6 +23,23 @@ const CONFIG = {
     maxGroup: 12,
   },
 
+  // Shown on the Policies page (policies.html). Empty values show as "To confirm" until filled in.
+  business: {
+    name: "BoardBrew",
+    legalName: "",         // FLAG: registered business name (DTI/SEC), if different from "BoardBrew"
+  },
+  privacy: {
+    contactName: "",       // FLAG: person responsible for privacy requests (often the owner)
+    contactEmail: "boardbrew.wcmc@gmail.com",
+    retentionDays: 30,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
+    lastUpdated: "November 9, 2026",
+  },
+  reservationPolicy: {
+    graceMinutes: "",      // FLAG: how long a table is held after the booking time, e.g. "15"
+    cancellation: "",      // FLAG: e.g. "Please cancel at least 1 hour before your booking."
+    deposit: "",           // FLAG: e.g. "No deposit needed." or the deposit rule
+  },
+
   contact: {
     address: ["2F Providence Tower", "Manila, Philippines"],
     phone: "+63 921 442 5656",
