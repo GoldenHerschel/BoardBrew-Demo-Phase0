@@ -32,7 +32,7 @@ const DRINKS = [
 // BroadBrew's Bites Menu: [name, tag, price]
 const BITES = [
 ["Tuna Pasta","Pasta",119], ["Chicken Alfredo","Pasta",119], 
-["Beef Pepper Rice","Rice Meal",149], ["Pork Samgyupsal","Rice Meal",129], ["Spicy Pork Samgyupsal","Rice Meal",129], ["Buffalo Chicken","Rice Meal",129], ["Soy Garlic Chicken","Rice Meal",129], ["Fried Rice Upgrade","Rice Meal",20]
+["Beef Pepper Rice","Rice Meal",149], ["Pork Samgyupsal","Rice Meal",129], ["Spicy Pork Samgyupsal","Rice Meal",129], ["Buffalo Chicken","Rice Meal",129], ["Soy Garlic Chicken","Rice Meal",129], ["Fried Rice Upgrade","Rice Meal",20],
 ["Plain Salad","Salad",109], ["Chicken & Egg Salad","Salad",109], 
 ["Nachos","Nachos",75],
 ["Add Egg","Add-ons",20], ["Add Rice","Add-ons",20], ["Add Fried Rice","Add-ons",30], ["Add Cheese","Add-ons",20], ["Include Bottled Water","Add-ons",15]
