@@ -21,18 +21,12 @@ const DRINKS = [
 ["BoardBrewed Coffee","Coffee",-1,89], ["King Americano","Coffee",89,99], ["Victory Cappuccino","Coffee",89,119], ["Latte Lore","Coffee",89,119], ["Caramel Macchiatto","Coffee",109,129], ["Spanish Latte","Coffee",109,129], ["Irish Caramel Latte","Coffee",109,129],
 ["Butterscotch Caramel Latte","Coffee",109,135], ["Cafe Mocha","Coffee",109,135], ["Barista's Bet","Coffee",119,155], ["White Chocolate Mocha","Coffee",119,149], ["Caramel Biscoffee","Coffee",119,149], ["Spanish Biscoffee","Coffee",119,149], ["Dirty Matcha","Coffee",125,145],
 ["Milk Elixir","Milk",89,99], ["Creamy Matcha","Milk",99,129], ["Checkmate Chocolate","Milk",119,139], ["Matcha Latte","Milk",119,149], ["Strawberry Matcha","Milk",119,149],
-["Iced Tea","Refresher",65,89], ["Strawberry Lemonade","Refresher",89,109], ["Peach Lemonade","Refresher",89,109], ["Mango Lemonade","Refresher",89,109],
+["Iced Tea","Refresher",65,89], ["Strawberry Lemonade","Refresher",89,109], ["Peach Lemonade","Refresher",89,109], ["Mango Lemonade","Refresher",89,109], ["Ice Tea (To Share)","Refresher",199,-1],
 ["Strawberry Mana","Mana",109,129], ["Peach Mana","Mana",109,129], ["Mango Mana","Mana",109,129], ["Peach Mango Mana","Mana",109,129], ["Peach Butterscotch Mana","Mana",109,129], ["Strawberry Caramel Mana","Mana",109,129], 
 ["Strawberry Frost","Frost",109,139], ["White Mocha Frost","Frost",119,139], ["Mocha Frost","Frost",119,139], ["Chocolate Frost","Frost",119,139], ["Matcha Frost","Frost",129,145], 
-["Strawberry Quest","Winter Quest",99,119], ["Lemon Quest","Frost",99,119], ["Peach Quest","Frost",99,119], ["Mango Quest","Frost",99,119]
-]
-// Drinks for Sharing [name, price]
-const SDRINKS = [
-["Ice Tea", 199], ["Strawberry Potion",199], ["Peach Potion",199], ["Peach Mango Potion",199]
-]
-// Add-ons [name, price]
-const DRINKADD = [
-["Expresso Shot",30], ["Syrup",20], ["Popping Boba",10]
+["Strawberry Potion","Penalty Potion",199,-1], ["Peach Potion","Penalty Potion",199,-1], ["Peach Mango Potion","Penalty Potion",199,-1],
+["Strawberry Quest","Winter Quest",99,119], ["Lemon Quest","Winter Quest",99,119], ["Peach Quest","Winter Quest",99,119], ["Mango Quest","Winter Quest",99,119],
+["Add Expresso Shot","Add-ons",30,-1], ["Add Syrup","Add-ons",20,-1], ["Add Popping Boba","Add-ons",10,-1]
 ]
 
 // BroadBrew's Bites Menu: [name, tag, price]
@@ -40,11 +34,8 @@ const BITES = [
 ["Tuna Pasta","Pasta",119], ["Chicken Alfredo","Pasta",119], 
 ["Beef Pepper Rice","Rice Meal",149], ["Pork Samgyupsal","Rice Meal",129], ["Spicy Pork Samgyupsal","Rice Meal",129], ["Buffalo Chicken","Rice Meal",129], ["Soy Garlic Chicken","Rice Meal",129], 
 ["Plain Salad","Salad",109], ["Chicken & Egg Salad","Salad",109], 
-["Nachos","Nachos",75]
-]
-//Add-ons [name,price]
-const BITESADD = [
-["Egg",20], ["Rice",20], ["Fried Rice",30], ["Cheese",20], ["Bottled Water",15]
+["Nachos","Nachos",75],
+["Add Egg","Add-ons",20], ["Add Rice","Add-ons",20], ["Add Fried Rice","Add-ons",30], ["Add Cheese","Add-ons",20], ["Include Bottled Water","Add-ons",15]
 ]
 
 // Events: SAMPLE data — replace with BoardBrew's real schedule. Dates are YYYY-MM-DD.
@@ -87,6 +78,44 @@ function renderGames(){
 let showAll=false;const gMore=document.getElementById("g-more");
 gMore.addEventListener("click",()=>{showAll=true;renderGames()});
 [gq,gn,gs].forEach(el=>el.addEventListener("input",()=>{showAll=false;renderGames()}));
+
+/* ===== Drinks ===== */
+const dq=document.getElementById("d-q"),dn=document.getElementById("d-n"),ds=document.getElementById("d-sort"),dl=document.getElementById("d-list"),dm=document.getElementById("d-meta");
+dn.innerHTML='<option value="0">Any</option>'+Array.from({length:12},(_,i)=>`<option value="${i+1}">${i+1}${i===11?"+":""} player${i?"s":""}</option>`).join("");
+const fits=(d,n)=>!n||(n>=12?d[2]>=12:(d[1]<=n&&d[2]>=n));
+function esc(s){return s.replace(/[&<>"]/d,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderDrinks(){
+  const q=dq.value.trim().toLowerCase(),n=+dn.value;
+  let list=DRINKS.filter(d=>fits(d,n)&&(!q||d[0].toLowerCase().includes(q)));
+  const s=ds.value;
+  list.sort(s==="min"?(a,b)=>a[1]-b[1]||a[0].localeCompare(b[0]):s==="max"?(a,b)=>b[2]-a[2]||a[0].localeCompare(b[0]):(a,b)=>a[0].localeCompare(b[0]));
+  dm.textContent=`${list.length} of ${DRINKS.length} drinks`+(n?` for ${n}${n>=12?"+":""} player${n>1?"s":""}`:"");
+  const total=list.length;if(!showAll&&total>24)list=list.slice(0,24);
+  dMore.hidden=showAll||total<=24;dMore.textContent=`Show all ${total} drinks`;
+  dl.innerHTML=list.length?list.map(d=>`<div class="drink"><span>${esc(d[0])}</span><span class="pill">${d[1]===d[2]?d[1]:d[1]+"–"+d[2]} ${d[2]===1?"player":"players"}</span></div>`).join(""):`<div class="empty">No items found. Try another name or group size.</div>`;
+}
+let showAll=false;const dMore=document.getElementById("d-more");
+gMore.addEventListener("click",()=>{showAll=true;renderDrinks()});
+[gq,gn,gs].forEach(el=>el.addEventListener("input",()=>{showAll=false;renderDrinks()}));
+
+/* ===== Bites ===== */
+const bq=document.getElementById("b-q"),bn=document.getElementById("b-n"),bs=document.getElementById("b-sort"),bl=document.getElementById("b-list"),bm=document.getElementById("b-meta");
+bn.innerHTML='<option value="">Any</option>'+Array.from({length:12},(_,i)=>`<option value="${i+1}">${i+1}${i===11?"+":""} player${i?"s":""}</option>`).join("");
+const fits=(b,n)=>!n||(n>=12?b[2]>=12:(b[1]<=n&&b[2]>=n));
+function esc(s){return s.replace(/[&<>"]/b,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderBites(){
+  const q=bq.value.trim().toLowerCase(),n=+bn.value;
+  let list=BITES.filter(b=>fits(b,n)&&(!q||b[0].toLowerCase().includes(q)));
+  const s=bs.value;
+  list.sort(s==="min"?(a,b)=>a[1]-b[1]||a[0].localeCompare(b[0]):s==="max"?(a,b)=>b[2]-a[2]||a[0].localeCompare(b[0]):(a,b)=>a[0].localeCompare(b[0]));
+  bm.textContent=`${list.length} of ${BITES.length} items`+(n?` for ${n}${n>=12?"+":""} player${n>1?"s":""}`:"");
+  const total=list.length;if(!showAll&&total>24)list=list.slice(0,24);
+  bMore.hidden=showAll||total<=24;bMore.textContent=`Show all ${total} items`;
+  bl.innerHTML=list.length?list.map(b=>`<div class="bite"><span>${esc(b[0])}</span><span class="pill">${b[1]===b[2]?b[1]:b[1]+"–"+b[2]} ${b[2]===1?"player":"players"}</span></div>`).join(""):`<div class="empty">No items found. Try another name or group size.</div>`;
+}
+let showAll=false;const bMore=document.getElementById("b-more");
+bMore.addEventListener("click",()=>{showAll=true;renderBites()});
+[bq,bn,bs].forEach(el=>el.addEventListener("input",()=>{showAll=false;renderBites()}));
 
 /* Hero finder */
 let fN=4;const fOut=document.getElementById("f-n"),fCount=document.getElementById("f-count");
