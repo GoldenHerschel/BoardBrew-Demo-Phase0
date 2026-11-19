@@ -1,29 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+  <title>BoardBrew Demo Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+
+  <link rel="stylesheet" href="public/styles.css">
+<style>
+</style>
+</head>
+<body>
+
+<nav data-label="A · Navigation bar">
+  <div class="wrap">
+    <a class="logo" href="../index.html" aria-label="BoardBrew home" data-label="A1 · Logo">B<svg viewBox="0 0 40 52" aria-hidden="true"><ellipse cx="20" cy="26" rx="18" ry="24" fill="var(--teal)"/><path d="M22 4c-9 10 6 24-4 44" stroke="var(--bg)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>ARDBREW</a>
+    <div class="nav-links">
+      <a href="events.html">Events</a><a href="games.html">Games</a><a href="delivery.html">Menu</a><a href="reviews.html">Reviews</a><a href="contact.html">Visit</a>
+    </div>
+    <a class="btn btn-primary btn-sm" href="reserve.html" data-label="A2 · Button">Reserve</a>
+  </div>
+</nav>
+
 <section class="band" id="menu" data-label="F · Menu &amp; delivery">
   <div class="wrap">
     <div class="head"><span class="eyebrow">Brews &amp; bites</span><h2>Menu</h2></div>
-    <div class="menu-grid">
-      <div class="menu-col" data-label="F1 · Menu list">
-        <h3>Coffee</h3>
-        <div class="item"><span>Spanish Latte</span><span class="dots"></span><span class="price">₱ —</span></div>
-        <div class="item"><span>Americano</span><span class="dots"></span><span class="price">₱ —</span></div>
-        <div class="item"><span>Caramel Macchiato</span><span class="dots"></span><span class="price">₱ —</span></div>
-        <div class="item"><span>Iced Mocha</span><span class="dots"></span><span class="price">₱ —</span></div>
-      </div>
-      <div class="menu-col">
-        <h3>Non-coffee &amp; snacks</h3>
-        <div class="item"><span>Matcha Latte</span><span class="dots"></span><span class="price">₱ —</span></div>
-        <div class="item"><span>Strawberry Milk</span><span class="dots"></span><span class="price">₱ —</span></div>
-        <div class="item"><span>Nachos to share</span><span class="dots"></span><span class="price">₱ —</span></div>
-        <div class="item"><span>Fries basket</span><span class="dots"></span><span class="price">₱ —</span></div>
-      </div>
+    <div class="g-controls" data-label="E1 · Search and filters">
+      <div class="field"><label for="d-q">Search drinks</label><input id="d-q" type="search" placeholder="Try Catan, Uno, Codenames"></div>
+      <div class="field sm"><label for="d-n">Players</label><select id="d-n"></select></div>
+      <div class="field sm"><label for="d-sort">Sort</label><select id="d-sort"><option value="az">A to Z</option><option value="min">Cheapest first</option><option value="max">Most expensive first</option></select></div>
     </div>
-    <p class="note" style="margin-top:16px">Placeholder items and prices. We'll swap in the real menu.</p>
+    <p class="g-meta" id="d-meta" aria-live="polite"></p>
+    <div class="games" id="d-list" data-label="E2 · Drink list"></div>
+    <button class="btn btn-ghost" type="button" id="d-more" style="margin-top:20px" data-label="E3 · Button"></button>
+
+    <div class="d-controls" data-label="E1 · Search and filters">
+      <div class="field"><label for="b-q">Search drinks</label><input id="b-q" type="search" placeholder="Try Catan, Uno, Codenames"></div>
+      <div class="field sm"><label for="b-n">Players</label><select id="b-n"></select></div>
+      <div class="field sm"><label for="b-sort">Sort</label><select id="b-sort"><option value="az">A to Z</option><option value="min">Cheapest first</option><option value="max">Most expensive first</option></select></div>
+    </div>
+    <p class="g-meta" id="b-meta" aria-live="polite"></p>
+    <div class="games" id="b-list" data-label="E2 · Bite list"></div>
+    <button class="btn btn-ghost" type="button" id="b-more" style="margin-top:20px" data-label="E3 · Button"></button>
+  </div>
     <div class="delivery" data-label="F2 · Delivery buttons">
       <div><h3>Order for delivery</h3><p style="opacity:.8">Get BoardBrew drinks and snacks delivered.</p></div>
       <div class="row">
         <a class="btn btn-primary" href="https://foodpanda.go.link/d3JZw" target="_blank" rel="noopener">foodpanda</a>
+        <a class="btn btn-second" href="https://food.grab.com/ph/en/restaurant/boardbrew-taft-delivery/2-C8JCEAEFN6VJFE?" target="_blank" rel="noopener">GrabFood</a>
         <a class="btn btn-ghost" href="https://utak.io/store/boardbrew" target="_blank" rel="noopener">Order online</a>
       </div>
     </div>
   </div>
 </section>
+
+<footer data-label="I · Footer">
+  <div class="wrap"><span>© BoardBrew · Where coffee meets connections</span><span>Demo build for client review</span></div>
+</footer>
+
+<script src="../public/functions.js"></script>
+
+</body>
+</html>
