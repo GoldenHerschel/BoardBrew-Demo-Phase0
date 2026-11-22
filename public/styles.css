@@ -151,6 +151,12 @@ input,select,textarea{font:inherit;font-size:1rem;padding:11px 13px;border-radiu
 .copy{font:500 .8rem var(--font-body);border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:6px;padding:3px 9px;cursor:pointer;justify-self:start}
 footer{border-top:1px solid var(--line);padding-block:28px;font-size:.88rem;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+/* Play Rates */
+.play-rates h3{font-size:1.3rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--teal)}
+.play-rates li{font-size:.8rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--muted);font-weight:500}
+/* House Rules */
+.house-rules h3{font-size:1.3rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--teal)}
+.house-rules li{font-size:.8rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--muted);font-weight:500}
 
 /* Feedback labels */
 .fb-toggle{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;font:600 .88rem var(--font-body);padding:11px 16px;border-radius:999px;border:0;background:var(--tag);color:#fff;cursor:pointer;box-shadow:0 8px 24px -8px rgba(0,0,0,.4)}
