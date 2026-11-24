@@ -134,6 +134,20 @@ $("r-lead-text").textContent = `${R.leadHours} hours`;
 $("r-window").textContent = `${fmtMin(FIRST)} to ${fmtMin(LAST)}`;
 rPax.innerHTML = Array.from({ length: R.maxGroup }, (_, i) => `<option value="${i + 1}${i === R.maxGroup - 1 ? "+" : ""}" ${i === 3 ? "selected" : ""}>${i + 1}${i === R.maxGroup - 1 ? "+" : ""}</option>`).join("");
 
+const rPaxHint = $("r-pax-hint");
+const minGroupNote = R.minGroupForNote ?? 8;
+function renderPaxNote() {
+  if (!rPaxHint) return;
+  const raw = rPax.value;
+  const num = parseInt(raw, 10);
+  const isLarge = raw.endsWith("+") || (!Number.isNaN(num) && num >= minGroupNote);
+  rPaxHint.textContent = isLarge
+    ? `Groups of ${minGroupNote}+ may need combined tables—message us if you need special seating.`
+    : "";
+}
+rPax.addEventListener("change", renderPaxNote);
+renderPaxNote();
+
 function fillTimes() {
   const prev = rTime.value, e = earliest();
   let first = null;
@@ -162,7 +176,7 @@ function bookingFromForm() {
   if (!rDate.value || rTime.value === "") throw "Pick a date and time.";
   const min = +rTime.value, when = slotDate(rDate.value, min);
   if (min < FIRST || min > LAST) throw `Reservations are from ${fmtMin(FIRST)} to ${fmtMin(LAST)}.`;
-  if (when < earliest()) throw `Reservations need at least ${R.leadHours} hours' notice. Pick a later time, or walk in.`;
+  if (when.getTime() < earliest().getTime()) throw `Reservations need at least ${R.leadHours} hours' notice. Pick a later time, or walk in.`;
   if (!/^(\+?63|0)9\d{9}$/.test(phone.replace(/[\s-]/g, ""))) throw "Add a valid PH mobile number, like 0917 123 4567.";
   return { name, phone, notes, date: rDate.value, time: min === 1440 ? "24:00" : `${pad(Math.floor(min / 60))}:${pad(min % 60)}`, startsAt: `${iso(when)}T${pad(when.getHours())}:${pad(when.getMinutes())}`, groupSize: rPax.value };
 }
@@ -248,8 +262,12 @@ $("c-next").onclick = () => { cM++; if (cM > 11) { cM = 0; cY++; } cSel = null; 
 const C = CONFIG.contact, OPEN = toMin(CONFIG.hours.open), CLOSE = toMin(CONFIG.hours.close);
 $("v-address").innerHTML = C.address.map(esc).join("<br>");
 $("v-hours").textContent = CONFIG.hours.label;
-$("ph").textContent = C.phone;
-$("em").textContent = C.email;
+const phEl = $("ph");
+phEl.textContent = C.phone;
+phEl.href = `tel:${C.phone.replace(/[^+\d]/g, "")}`;
+const emEl = $("em");
+emEl.textContent = C.email;
+emEl.href = `mailto:${C.email}`;
 function renderOpenNow() {
   const n = now(), t = n.getHours() * 60 + n.getMinutes();
   const open = CLOSE > 1440 ? t >= OPEN || t < CLOSE - 1440 : t >= OPEN && t < CLOSE;
