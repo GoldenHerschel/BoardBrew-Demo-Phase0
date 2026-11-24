@@ -154,12 +154,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 .rates-and-rules{position:relative;display:flex;flex-flow: column;gap:15px;margin-bottom:30px}
 /* Play Rates */
-.play-rates{border:solid;border-radius:40px;padding:10px;}
-.play-rates h3{font-size:1.3rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--teal);text-align:center}
-.play-rates table{margin-top:10px;margin-bottom:10px;font-weight:500;margin-left:auto;margin-right:auto;border-collapse:collapse}
-.play-rates .rate-type{width:250px}
-.play-rates .rate-price{color:var(--muted);padding-left:10px}
-.play-rates .non-last{border-bottom:1px dashed var(--line)}
+.footnote{color:var(--muted);font-weight:150}
 /* House Rules */
 .house-rules{border:solid;border-radius:40px;padding:10px;}
 .house-rules h3{font-size:1.3rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--teal);text-align:center}

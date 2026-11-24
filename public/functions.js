@@ -114,6 +114,14 @@ document.querySelectorAll("[data-tab]").forEach((tab) => tab.addEventListener("c
   });
 }));
 
+/* ==== Play Rates & Packages ==== */
+function groupBy(items) {
+  const out = new Map();
+  items.forEach((i) => { if (!out.has(i[1])) out.set(i[1], []); out.get(i[1]).push(i); });
+  return [...out];
+}
+$("v-rates").innerHTML = groupBy(PLAYRATES).map(plainGroup).join("");
+
 /* ===== Reservations ===== */
 const R = CONFIG.reservations;
 const rDate = $("r-date"), rTime = $("r-time"), rPax = $("r-pax"), rHint = $("r-time-hint"), rErr = $("r-err");

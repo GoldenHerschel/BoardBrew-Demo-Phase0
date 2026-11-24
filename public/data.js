@@ -49,6 +49,13 @@ const BITE_ADDONS = [
 ["Egg","Food Add-ons",20], ["Extra rice","Food Add-ons",20], ["Upgrade to fried rice","Food Add-ons",20], ["Extra fried rice","Food Add-ons",30], ["Cheese","Food Add-ons",20], ["Bottled water","Food Add-ons",15],
 ];
 
+// Play Rates & Packages: [name, group, price]
+const PLAYRATES = [
+["1 Hour","Regular Rates",85], ["2 Hours","Regular Rates",160], ["3 Hours","Regular Rates",225], ["Whole Day","Regular Rates",325],
+["1 Hour","Student* Rates",80], ["2 Hours","Student* Rates",150], ["3 Hours","Student* Rates",210], ["Whole Day","Student* Rates",310],
+["2 Hours, 1 Drink","Packages",285], ["3 Hours, 2 Drinks","Packages",485],
+];
+
 // Events: [date YYYY-MM-DD, time, title, description, sample?]
 // Real events: add a line like ["2026-11-20","7:00 PM","Catan night","Bring your A-game.",false]
 // Sample events (sample = true) show a "Sample" tag and are generated for the current months.
