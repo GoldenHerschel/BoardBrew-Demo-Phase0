@@ -152,6 +152,15 @@ input,select,textarea{font:inherit;font-size:1rem;padding:11px 13px;border-radiu
 footer{border-top:1px solid var(--line);padding-block:28px;font-size:.88rem;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
+.rates-and-rules{position:relative;display:flex;flex-flow: column;gap:15px;margin-bottom:30px}
+/* Play Rates */
+.footnote{color:var(--muted);font-weight:150}
+/* House Rules */
+.house-rules{border:solid;border-radius:40px;padding:10px;}
+.house-rules h3{font-size:1.3rem;font-family:var(--font-mono);letter-spacing:.12em;color:var(--teal);text-align:center}
+.house-rules ol{margin-top:10px;margin-bottom:10px}
+.house-rules li{font-weight:500}
+
 /* Feedback labels */
 .fb-toggle{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;font:600 .88rem var(--font-body);padding:11px 16px;border-radius:999px;border:0;background:var(--tag);color:#fff;cursor:pointer;box-shadow:0 8px 24px -8px rgba(0,0,0,.4)}
 [data-label]{position:relative}
