@@ -1,8 +1,8 @@
 # QA 1 test cases
 
-Tested on branch `Dev1` (with QA 1 fixes), November 25, 2026. Chrome, desktop (1280 px) and phone (375 px).
+Tested on branch `Dev1`, November 25–26, 2026 (retested after Dev 1's final changes). Chrome, desktop (1280 px) and phone (375 px).
 Times use the test clock: add `?now=YYYY-MM-DDTHH:MM` to the address.
-✅ automated = covered by `tests/rules.test.js` (run `node --test`).
+✅ automated = covered by `tests/rules.test.js` or `tests/site.test.js` (run `node --test`).
 
 ## Player filter
 
@@ -30,11 +30,7 @@ Times use the test clock: add `?now=YYYY-MM-DDTHH:MM` to the address.
 
 ## Large group note (8+)
 
-| ID | Steps | Expected | Result |
-| --- | --- | --- | --- |
-| GN-01 | Group size 7 | No note | ✅ Pass |
-| GN-02 | Group size 8 | “Groups of 8+…” note | ✅ Pass |
-| GN-03 | Group size 12+ | Same note | ✅ Pass |
+Removed on BoardBrew's feedback (Dev 1, Nov 26), so GN-01 to GN-03 were retired. SM-01 checks the removal didn't break the page.
 
 ## Reviews
 
@@ -58,8 +54,16 @@ Times use the test clock: add `?now=YYYY-MM-DDTHH:MM` to the address.
 | --- | --- | --- | --- |
 | PO-01 | Reservation policy | 20-minute hold, cancel 1 hour before, no deposit | ✅ Pass |
 | PO-02 | Privacy notice | Food allergies allowed in notes, other health info not | ✅ Pass after fix |
-| PO-03 | “To confirm” markers | None | ❌ 1 left: privacy contact is empty. BoardBrew gave “Charisse Custodio”, needs adding to `config.js` |
+| PO-03 | “To confirm” markers | None | ✅ Pass after fix (contact name added) |
+| PO-05 | “Last updated” date | Shows the latest change (Nov 26, 2026) | ✅ Pass |
 | PO-04 | Phone width (375 px) | No sideways scrolling | ✅ Pass |
+
+## Whole site
+
+| ID | Steps | Expected | Result |
+| --- | --- | --- | --- |
+| SM-01 | Load the page | Page script runs with no errors | ✅ Pass after fix (automated) |
+| SM-02 | Compare `index.html` and `policies.html` with `views/` | Built pages are up to date | ✅ Pass after fix (automated) |
 
 ## Bugs found
 
@@ -71,4 +75,6 @@ Times use the test clock: add `?now=YYYY-MM-DDTHH:MM` to the address.
 | BUG-04 | Games note shown twice | Fixed |
 | BUG-05 | `index.html` not rebuilt after view changes | Fixed |
 | BUG-06 | Dev 1 and Dev 2 branches conflicted in `config.js` and `reserve.html` | Fixed: they now merge cleanly |
-| BUG-07 | Privacy contact missing (“To confirm”) | Open: add Charisse Custodio |
+| BUG-07 | Privacy contact missing (“To confirm”) | Fixed by Dev 1 |
+| BUG-08 | Removing the 8+ note left 2 lines calling the deleted function: the page script crashed and the booking form showed no times | Fixed by QA 1; now caught by SM-01 |
+| BUG-09 | `index.html` not rebuilt after Dev 1's last change (second time) | Fixed; now caught by SM-02 |
