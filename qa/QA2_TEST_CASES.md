@@ -1,6 +1,12 @@
 
 # QA2 Test Cases
 
+Tested on branch `Dev2`, November 25, 2026.
+
+Testing Environment:
+Browser - Google Chrome Version 158.0.8127.36 (Official Build) (64-bit), Microsoft Edge Version 158.0.4370.33 (Official Build) (64-bit)
+Devices - Xiaomi Poco X4 Pro 5G (Xiaomi HyperOS 1.0.9.0.TKCMIXM), ASUS ROG Strix GL503VM HERO Edition (Windows 10 Home Version 22H2)
+
 ## 1. Menu Prices
 
 | Test ID | Test Scenario | Expected Result | Status |
