@@ -134,8 +134,6 @@ $("r-lead-text").textContent = `${R.leadHours} hours`;
 $("r-window").textContent = `${fmtMin(FIRST)} to ${fmtMin(LAST)}`;
 rPax.innerHTML = Array.from({ length: R.maxGroup }, (_, i) => `<option value="${i + 1}${i === R.maxGroup - 1 ? "+" : ""}" ${i === 3 ? "selected" : ""}>${i + 1}${i === R.maxGroup - 1 ? "+" : ""}</option>`).join("");
 
-rPax.addEventListener("change", renderPaxNote);
-renderPaxNote();
 
 function fillTimes() {
   const prev = rTime.value, e = earliest();
