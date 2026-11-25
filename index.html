@@ -19,7 +19,12 @@
 <nav data-label="A · Navigation bar">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="BoardBrew home" data-label="A1 · Logo">B<svg viewBox="0 0 40 52" aria-hidden="true"><ellipse cx="20" cy="26" rx="18" ry="24" fill="var(--teal)"/><path d="M22 4c-9 10 6 24-4 44" stroke="var(--bg)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>ARDBREW</a>
-    <div class="nav-links">
+    <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a href="#events">Events</a><a href="#games">Games</a><a href="#menu">Menu</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a>
     </div>
     <a class="btn btn-primary btn-sm" href="#reserve" data-label="A2 · Button">Reserve</a>
@@ -66,7 +71,7 @@
       <div class="field"><label for="r-time">Time</label><select id="r-time"></select><span class="hint" id="r-time-hint"></span></div>
       <div class="field"><label for="r-pax">Group size</label><select id="r-pax"></select></div>
       <div class="field"><label for="r-phone">Mobile number</label><input id="r-phone" inputmode="tel" autocomplete="tel" placeholder="0917 123 4567"></div>
-      <div class="field full"><label for="r-note">Notes (optional)</label><input id="r-note" maxlength="300" placeholder="Birthday, a game you want set aside, etc." aria-describedby="r-note-hint"><span class="hint" id="r-note-hint">Please don’t include health or other sensitive details.</span></div>
+      <div class="field full"><label for="r-note">Notes (optional)</label><input id="r-note" maxlength="300" placeholder="Birthday, a game you want set aside, food allergies, advance order, etc." aria-describedby="r-note-hint"><span class="hint" id="r-note-hint">For groups of 8 or more, we recommend placing food orders in advance so we can prepare for your arrival.</span></div>
       <div class="field full"><span class="err" id="r-err" role="alert"></span><button class="btn btn-primary" type="submit" style="justify-self:start" data-label="C3 · Button">Request reservation</button><span class="hint">We use your name and number only to confirm this booking. <a href="policies.html#privacy">Privacy notice</a> · <a href="policies.html#reservations">Reservation policy</a></span></div>
       <div class="result" id="r-result" hidden>
         <strong id="r-intro">Almost done. Send this message to BoardBrew:</strong>
