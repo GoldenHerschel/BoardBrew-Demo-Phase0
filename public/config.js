@@ -30,10 +30,10 @@ const CONFIG = {
     legalName: "",         // FLAG: registered business name (DTI/SEC), if different from "BoardBrew"
   },
   privacy: {
-    contactName: "",       // FLAG: person responsible for privacy requests (often the owner)
+    contactName: "Chea Custodio",       // FLAG: person responsible for privacy requests (often the owner)
     contactEmail: "boardbrew.wcmc@gmail.com",
-    retentionDays: 7,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
-    lastUpdated: "November 9, 2026",
+    retentionDays: 30,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
+    lastUpdated: "November 26, 2026",
   },
   reservationPolicy: {
     graceMinutes: "20",      // FLAG: how long a table is held after the booking time, e.g. "15"

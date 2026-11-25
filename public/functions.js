@@ -134,17 +134,6 @@ $("r-lead-text").textContent = `${R.leadHours} hours`;
 $("r-window").textContent = `${fmtMin(FIRST)} to ${fmtMin(LAST)}`;
 rPax.innerHTML = Array.from({ length: R.maxGroup }, (_, i) => `<option value="${i + 1}${i === R.maxGroup - 1 ? "+" : ""}" ${i === 3 ? "selected" : ""}>${i + 1}${i === R.maxGroup - 1 ? "+" : ""}</option>`).join("");
 
-const rPaxHint = $("r-pax-hint");
-const minGroupNote = R.minGroupForNote ?? 8;
-function renderPaxNote() {
-  if (!rPaxHint) return;
-  const raw = rPax.value;
-  const num = parseInt(raw, 10);
-  const isLarge = raw.endsWith("+") || (!Number.isNaN(num) && num >= minGroupNote);
-  rPaxHint.textContent = isLarge
-    ? `Groups of ${minGroupNote}+ may need combined tables—message us if you need special seating.`
-    : "";
-}
 rPax.addEventListener("change", renderPaxNote);
 renderPaxNote();
 
