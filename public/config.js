@@ -31,13 +31,13 @@ const CONFIG = {
   privacy: {
     contactName: "",       // FLAG: person responsible for privacy requests (often the owner)
     contactEmail: "boardbrew.wcmc@gmail.com",
-    retentionDays: 30,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
+    retentionDays: 7,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
     lastUpdated: "November 9, 2026",
   },
   reservationPolicy: {
-    graceMinutes: "",      // FLAG: how long a table is held after the booking time, e.g. "15"
-    cancellation: "",      // FLAG: e.g. "Please cancel at least 1 hour before your booking."
-    deposit: "",           // FLAG: e.g. "No deposit needed." or the deposit rule
+    graceMinutes: "20",      // FLAG: how long a table is held after the booking time, e.g. "15"
+    cancellation: "Please cancel at least 1 hour before your booking.",      // FLAG: e.g. "Please cancel at least 1 hour before your booking."
+    deposit: "No deposit needed.",           // FLAG: e.g. "No deposit needed." or the deposit rule
   },
 
   contact: {
@@ -51,7 +51,7 @@ const CONFIG = {
     facebook: "https://www.facebook.com/boardbreww",
     reviews: "https://www.facebook.com/boardbreww/reviews",
     instagram: "https://www.instagram.com/boardbrew.wcmc",
-    tiktok: "",            // FLAG: TikTok link from BoardBrew
+    tiktok: "https://www.tiktok.com/@boardbrew",            // FLAG: TikTok link from BoardBrew
     foodpanda: "https://foodpanda.go.link/d3JZw",
     grab: "",              // FLAG: GrabFood link from BoardBrew
     orderOnline: "https://utak.io/store/boardbrew",
