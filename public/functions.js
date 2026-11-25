@@ -62,7 +62,7 @@ if (fb) {
 document.querySelectorAll('[data-count="games"]').forEach((el) => (el.textContent = GAMES.length));
 
 /* ===== Games ===== */
-const fits = (g, n) => !n || (n >= 12 ? g[2] >= 12 : g[1] <= n && g[2] >= n);
+const fits = fitsPlayers; // rules.js
 const gq = $("g-q"), gn = $("g-n"), gs = $("g-sort"), gl = $("g-list"), gm = $("g-meta"), gMore = $("g-more");
 let showAllGames = false;
 gn.innerHTML = '<option value="0">Any</option>' + Array.from({ length: 12 }, (_, i) => `<option value="${i + 1}">${i + 1}${i === 11 ? "+" : ""} player${i ? "s" : ""}</option>`).join("");
@@ -128,7 +128,7 @@ const rDate = $("r-date"), rTime = $("r-time"), rPax = $("r-pax"), rHint = $("r-
 const FIRST = toMin(R.firstSlot), LAST = toMin(R.lastSlot);
 const SLOTS = []; for (let m = FIRST; m <= LAST; m += R.slotMinutes) SLOTS.push(m);
 const slotDate = (dateStr, min) => { const [y, mo, d] = dateStr.split("-").map(Number); return new Date(y, mo - 1, d, 0, min); };
-const earliest = () => new Date(now().getTime() + R.leadHours * 3600e3);
+const earliest = () => earliestBookable(now(), R.leadHours); // rules.js: seconds dropped, so exactly 2h ahead is allowed
 $("r-lead").textContent = `${R.leadHours}h`;
 $("r-lead-text").textContent = `${R.leadHours} hours`;
 $("r-window").textContent = `${fmtMin(FIRST)} to ${fmtMin(LAST)}`;
@@ -176,7 +176,7 @@ function bookingFromForm() {
   if (!rDate.value || rTime.value === "") throw "Pick a date and time.";
   const min = +rTime.value, when = slotDate(rDate.value, min);
   if (min < FIRST || min > LAST) throw `Reservations are from ${fmtMin(FIRST)} to ${fmtMin(LAST)}.`;
-  if (when.getTime() < earliest().getTime()) throw `Reservations need at least ${R.leadHours} hours' notice. Pick a later time, or walk in.`;
+  if (when < earliest()) throw `Reservations need at least ${R.leadHours} hours' notice. Pick a later time, or walk in.`;
   if (!/^(\+?63|0)9\d{9}$/.test(phone.replace(/[\s-]/g, ""))) throw "Add a valid PH mobile number, like 0917 123 4567.";
   return { name, phone, notes, date: rDate.value, time: min === 1440 ? "24:00" : `${pad(Math.floor(min / 60))}:${pad(min % 60)}`, startsAt: `${iso(when)}T${pad(when.getHours())}:${pad(when.getMinutes())}`, groupSize: rPax.value };
 }
