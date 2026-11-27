@@ -217,3 +217,66 @@ mark.flag{background:color-mix(in srgb,var(--tag) 20%,transparent);color:var(--f
 /* Small link rows are <nav> too: don't give them the sticky top-bar look */
 .policy-toc,.foot-links{position:static;background:none;backdrop-filter:none;border:0;z-index:auto}
 body:has(.fb-toggle) footer{padding-bottom:84px}
+
+/* Hamburger button: shown only on mobile */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.menu-toggle .bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: var(--fg);
+  border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
+}
+
+/* Mobile breakpoint consistent */
+@media (max-width: 860px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Hide the original horizontal navigation links on mobile */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    padding: 16px 20px;
+    gap: 12px;
+    z-index: 30;
+  }
+
+  /* Add this class via JS when expanded */
+  .nav-links.is-open {
+    display: flex;
+  }
+
+  /* Ensure nav is the positioning reference */
+  nav .wrap {
+    position: relative;
+  }
+}
+
+/* Hamburger icon transforms into X when expanded */
+.menu-toggle[aria-expanded="true"] .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}

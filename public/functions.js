@@ -45,6 +45,43 @@ document.querySelectorAll("[data-link]").forEach((a) => {
   if (url) a.href = url; else a.hidden = true;
 });
 
+/* ===== Mobile menu toggle ===== */
+const menuToggle = $("menu-toggle");
+const navLinks = $("nav-links");
+
+if (menuToggle && navLinks) {
+  const setMenu = (open) => {
+    menuToggle.setAttribute("aria-expanded", String(open));
+    navLinks.classList.toggle("is-open", open);
+    menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+
+  menuToggle.addEventListener("click", () => {
+    setMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  // Close menu when a link is clicked
+  navLinks.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => setMenu(false));
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (menuToggle.getAttribute("aria-expanded") === "true" &&
+        !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+      setMenu(false);
+    }
+  });
+
+  // Close menu with Escape key and return focus to the button
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && menuToggle.getAttribute("aria-expanded") === "true") {
+      setMenu(false);
+      menuToggle.focus();
+    }
+  });
+}
+
 /* ===== Feedback labels ===== */
 const fb = $("fb");
 if (fb) {
