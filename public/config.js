@@ -21,6 +21,7 @@ const CONFIG = {
     lastSlot: "24:00",     // latest reservation time (24:00 = 12:00 midnight)
     slotMinutes: 30,
     maxGroup: 12,
+    minGroupForNote: 8,
   },
 
   // Shown on the Policies page (policies.html). Empty values show as "To confirm" until filled in.
@@ -29,10 +30,10 @@ const CONFIG = {
     legalName: "",         // FLAG: registered business name (DTI/SEC), if different from "BoardBrew"
   },
   privacy: {
-    contactName: "",       // FLAG: person responsible for privacy requests (often the owner)
+    contactName: "Chea Custodio",       // FLAG: person responsible for privacy requests (often the owner)
     contactEmail: "boardbrew.wcmc@gmail.com",
     retentionDays: 7,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
-    lastUpdated: "November 9, 2026",
+    lastUpdated: "November 26, 2026",
   },
   reservationPolicy: {
     graceMinutes: "20",      // FLAG: how long a table is held after the booking time, e.g. "15"
@@ -41,7 +42,7 @@ const CONFIG = {
   },
 
   contact: {
-    address: ["2F Providence Tower", "Manila, Philippines"],
+    address: ["2F Providence Tower, 2471 Leon Guinto St.", "Malate, Manila, 1004 Metro Manila"],
     phone: "+63 921 442 5656",
     email: "boardbrew.wcmc@gmail.com",
   },
@@ -55,5 +56,6 @@ const CONFIG = {
     foodpanda: "https://foodpanda.go.link/d3JZw",
     grab: "",              // FLAG: GrabFood link from BoardBrew
     orderOnline: "https://utak.io/store/boardbrew",
+    maps: "https://www.google.com/maps/search/?api=1&query=BoardBrew+2F+Providence+Tower+Manila",
   },
 };

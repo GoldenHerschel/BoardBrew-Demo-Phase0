@@ -64,12 +64,17 @@
       <h2>Save your spot at the table</h2>
       <p class="lede">Pick a date, time and group size. Your request goes to BoardBrew, and the team confirms your table by message.</p>
       <div class="rule" data-label="C1 · Booking rule"><b id="r-lead">2h</b><span>Book at least <strong id="r-lead-text">2 hours</strong> ahead, for any time from <strong id="r-window">8:00 AM to 12:00 midnight</strong>. Coming sooner? Walk in or message us.</span></div>
+      <ul class="policy-bullets" aria-label="Reservation rules">
+        <li><strong>20-minute hold</strong> after your booking time.</li>
+        <li><strong>Cancel at least 1 hour before</strong> your booking.</li>
+        <li><strong>No deposit</strong> required.</li>
+      </ul>
     </div>
     <form id="rform" novalidate data-label="C2 · Reservation form">
       <div class="field full"><label for="r-name">Name</label><input id="r-name" autocomplete="name" placeholder="Juan Dela Cruz"></div>
       <div class="field"><label for="r-date">Date</label><input id="r-date" type="date"></div>
       <div class="field"><label for="r-time">Time</label><select id="r-time"></select><span class="hint" id="r-time-hint"></span></div>
-      <div class="field"><label for="r-pax">Group size</label><select id="r-pax"></select></div>
+      <div class="field"><label for="r-pax">Group size</label><select id="r-pax"></select> </div>
       <div class="field"><label for="r-phone">Mobile number</label><input id="r-phone" inputmode="tel" autocomplete="tel" placeholder="0917 123 4567"></div>
       <div class="field full"><label for="r-note">Notes (optional)</label><input id="r-note" maxlength="300" placeholder="Birthday, a game you want set aside, food allergies, advance order, etc." aria-describedby="r-note-hint"><span class="hint" id="r-note-hint">For groups of 8 or more, we recommend placing food orders in advance so we can prepare for your arrival.</span></div>
       <div class="field full"><span class="err" id="r-err" role="alert"></span><button class="btn btn-primary" type="submit" style="justify-self:start" data-label="C3 · Button">Request reservation</button><span class="hint">We use your name and number only to confirm this booking. <a href="policies.html#privacy">Privacy notice</a> · <a href="policies.html#reservations">Reservation policy</a></span></div>
@@ -113,6 +118,7 @@
       <div class="field sm"><label for="g-n">Players</label><select id="g-n"></select></div>
       <div class="field sm"><label for="g-sort">Sort</label><select id="g-sort"><option value="az">A to Z</option><option value="min">Fewest players first</option><option value="max">Biggest groups first</option></select></div>
     </div>
+    <p class="note">Games are first-come, first-served—let us know in your reservation notes if you'd like a specific title set aside.</p>
     <p class="g-meta" id="g-meta" aria-live="polite"></p>
     <div class="games" id="g-list" data-label="E2 · Game list"></div>
     <button class="btn btn-ghost" type="button" id="g-more" style="margin-top:20px" data-label="E3 · Button"></button>
@@ -146,9 +152,9 @@
       <a class="btn btn-ghost btn-sm" href="https://www.facebook.com/boardbreww/reviews" target="_blank" rel="noopener">Read reviews on Facebook</a>
     </div>
     <div class="reviews" data-label="G2 · Review cards">
-      <div class="review"><div class="bar"></div><div class="bar"></div><div class="bar s"></div><span class="note">Real customer review goes here</span></div>
-      <div class="review"><div class="bar"></div><div class="bar s"></div><span class="note">Real customer review goes here</span></div>
-      <div class="review"><div class="bar"></div><div class="bar"></div><div class="bar s"></div><span class="note">Real customer review goes here</span></div>
+      <blockquote class="review"><p>“delicious but cheap food and drinks 😁 good selection din ng games!!”</p><footer>— Liam</footer></blockquote>
+      <blockquote class="review"><p>“Student budget-friendly food and drinks, wide assortment of games, occasional gaming events.”</p><footer>— AJ</footer></blockquote>
+      <blockquote class="review"><p>“drinks here are superb, barista's bet in now my all time fave...store vibe is relaxing and fun at the same time..”</p><footer>— Czir</footer></blockquote>
     </div>
   </div>
 </section>
@@ -172,10 +178,26 @@
       </div>
     </div>
     <div class="visit-grid">
-      <div><h3>Address</h3><p id="v-address">2F Providence Tower<br>Manila, Philippines</p></div>
-      <div><h3>Hours</h3><p id="v-hours">8:00 AM – 2:00 AM daily, holidays included</p><p class="status" id="v-status" aria-live="polite"></p></div>
-      <div><h3>Phone</h3><p id="ph">+63 921 442 5656</p><button class="copy" data-copy="ph">Copy</button></div>
-      <div><h3>Email</h3><p id="em" style="overflow-wrap:anywhere">boardbrew.wcmc@gmail.com</p><button class="copy" data-copy="em">Copy</button></div>
+      <div>
+        <h3>Address</h3>
+        <p id="v-address">2F Providence Tower, 2471 Leon Guinto St.<br>Malate, Manila, 1004 Metro Manila</p>
+        <a class="map-link" data-link="maps" target="_blank" rel="noopener">Open in Google Maps</a>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p id="v-hours">8:00 AM – 2:00 AM daily, holidays included</p>
+        <p class="status" id="v-status" aria-live="polite"></p>
+      </div>
+      <div>
+        <h3>Phone</h3>
+        <p><a id="ph" href="tel:+639214425656">+63 921 442 5656</a></p>
+        <button class="copy" data-copy="ph">Copy</button>
+      </div>
+      <div>
+        <h3>Email</h3>
+        <p><a id="em" href="mailto:boardbrew.wcmc@gmail.com" style="overflow-wrap:anywhere">boardbrew.wcmc@gmail.com</a></p>
+        <button class="copy" data-copy="em">Copy</button>
+      </div>
     </div>
     <div class="socials" data-label="H1 · Social links">
       <a class="btn btn-ghost btn-sm" data-link="facebook" target="_blank" rel="noopener">Facebook</a>
@@ -201,6 +223,7 @@
 
 <script src="public/config.js"></script>
 <script src="public/data.js"></script>
+<script src="public/rules.js"></script>
 <script src="public/functions.js"></script>
 </body>
 </html>

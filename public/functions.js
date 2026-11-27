@@ -99,7 +99,7 @@ if (fb) {
 document.querySelectorAll('[data-count="games"]').forEach((el) => (el.textContent = GAMES.length));
 
 /* ===== Games ===== */
-const fits = (g, n) => !n || (n >= 12 ? g[2] >= 12 : g[1] <= n && g[2] >= n);
+const fits = fitsPlayers; // rules.js
 const gq = $("g-q"), gn = $("g-n"), gs = $("g-sort"), gl = $("g-list"), gm = $("g-meta"), gMore = $("g-more");
 let showAllGames = false;
 gn.innerHTML = '<option value="0">Any</option>' + Array.from({ length: 12 }, (_, i) => `<option value="${i + 1}">${i + 1}${i === 11 ? "+" : ""} player${i ? "s" : ""}</option>`).join("");
@@ -165,11 +165,12 @@ const rDate = $("r-date"), rTime = $("r-time"), rPax = $("r-pax"), rHint = $("r-
 const FIRST = toMin(R.firstSlot), LAST = toMin(R.lastSlot);
 const SLOTS = []; for (let m = FIRST; m <= LAST; m += R.slotMinutes) SLOTS.push(m);
 const slotDate = (dateStr, min) => { const [y, mo, d] = dateStr.split("-").map(Number); return new Date(y, mo - 1, d, 0, min); };
-const earliest = () => new Date(now().getTime() + R.leadHours * 3600e3);
+const earliest = () => earliestBookable(now(), R.leadHours); // rules.js: seconds dropped, so exactly 2h ahead is allowed
 $("r-lead").textContent = `${R.leadHours}h`;
 $("r-lead-text").textContent = `${R.leadHours} hours`;
 $("r-window").textContent = `${fmtMin(FIRST)} to ${fmtMin(LAST)}`;
 rPax.innerHTML = Array.from({ length: R.maxGroup }, (_, i) => `<option value="${i + 1}${i === R.maxGroup - 1 ? "+" : ""}" ${i === 3 ? "selected" : ""}>${i + 1}${i === R.maxGroup - 1 ? "+" : ""}</option>`).join("");
+
 
 function fillTimes() {
   const prev = rTime.value, e = earliest();
@@ -285,8 +286,12 @@ $("c-next").onclick = () => { cM++; if (cM > 11) { cM = 0; cY++; } cSel = null; 
 const C = CONFIG.contact, OPEN = toMin(CONFIG.hours.open), CLOSE = toMin(CONFIG.hours.close);
 $("v-address").innerHTML = C.address.map(esc).join("<br>");
 $("v-hours").textContent = CONFIG.hours.label;
-$("ph").textContent = C.phone;
-$("em").textContent = C.email;
+const phEl = $("ph");
+phEl.textContent = C.phone;
+phEl.href = `tel:${C.phone.replace(/[^+\d]/g, "")}`;
+const emEl = $("em");
+emEl.textContent = C.email;
+emEl.href = `mailto:${C.email}`;
 function renderOpenNow() {
   const n = now(), t = n.getHours() * 60 + n.getMinutes();
   const open = CLOSE > 1440 ? t >= OPEN || t < CLOSE - 1440 : t >= OPEN && t < CLOSE;

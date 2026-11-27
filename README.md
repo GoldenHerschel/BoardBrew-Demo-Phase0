@@ -46,7 +46,8 @@ Add `?now=YYYY-MM-DDTHH:MM` to the address to pretend it's that time. An orange 
 
 | Address ends with | Expect |
 | --- | --- |
-| `?now=2026-11-09T09:10` | Earliest time today is 11:30 AM |
+| `?now=2026-11-09T09:00` | 11:00 AM (exactly 2 hours ahead) is the earliest time allowed |
+| `?now=2026-11-09T09:10` | Earliest time is 11:30 AM (slots are every 30 minutes) |
 | `?now=2026-11-09T21:30` | Only 12:00 midnight left today |
 | `?now=2026-11-09T22:30` | Date jumps to tomorrow, 8:00 AM |
 | `?now=2026-11-10T01:00` | Visit says "Open now" |
