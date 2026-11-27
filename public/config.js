@@ -32,7 +32,7 @@ const CONFIG = {
   privacy: {
     contactName: "Chea Custodio",       // FLAG: person responsible for privacy requests (often the owner)
     contactEmail: "boardbrew.wcmc@gmail.com",
-    retentionDays: 30,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
+    retentionDays: 7,     // FLAG: confirm. Booking details are deleted this many days after the booking date.
     lastUpdated: "November 26, 2026",
   },
   reservationPolicy: {
